@@ -1,0 +1,7 @@
+# Netlify detects Next.js automatically and sets up the server functions
+# for the API route. Do not set a "publish" folder here.
+[build]
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "22"

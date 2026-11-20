@@ -1,0 +1,143 @@
+@import "tailwindcss";
+
+/*
+  Cobalt & Mint Design System
+  ═══════════════════════════
+  Primary:   Cobalt #315C9B / Deep Cobalt #244777
+  Secondary: Mint #83D6BD / Deep Mint #245D52
+  60% light backgrounds · 30% cobalt/navy · 10% mint accents
+*/
+@theme {
+  /* ── Typography ── */
+  --font-display: "Playfair Display Variable", "Georgia", serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* ── Primary ── */
+  --color-cobalt: #315C9B;
+  --color-cobalt-deep: #244777;
+  --color-cobalt-light: #3d6db3;
+
+  /* ── Secondary ── */
+  --color-mint: #83D6BD;
+  --color-mint-deep: #245D52;
+  --color-mint-pale: #DDF3EC;
+
+  /* ── Background ── */
+  --color-bg: #F4F8FC;
+  --color-surface: #FFFFFF;
+  --color-highlight: #DDF3EC;
+
+  /* ── Typography colours ── */
+  --color-heading: #26364B;
+  --color-body: #64748B;
+  --color-muted: #8996A7;
+
+  /* ── Borders & Utility ── */
+  --color-border: #DCE6F0;
+  --color-success: #287A55;
+  --color-error: #C34B4B;
+
+  /* ── Radii ── */
+  --radius-card: 14px;
+  --radius-btn: 8px;
+}
+
+/* ── Base ── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--color-heading);
+}
+
+/* Sections stop below the sticky navbar when linked with #anchors */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* ── Focus ── */
+:focus-visible {
+  outline: 3px solid var(--color-cobalt);
+  outline-offset: 3px;
+}
+.on-dark :focus-visible {
+  outline-color: var(--color-mint);
+}
+
+/* ── Buttons ── */
+@utility btn {
+  @apply inline-flex min-h-12 items-center justify-center gap-2 px-6 py-2.5 text-base font-semibold transition-all duration-200;
+  border-radius: var(--radius-btn);
+}
+
+@utility btn-primary {
+  @apply btn bg-cobalt text-white hover:bg-cobalt-deep shadow-sm hover:shadow-md;
+}
+
+@utility btn-secondary {
+  @apply btn bg-mint-pale text-mint-deep hover:bg-mint/30;
+}
+
+@utility btn-outline {
+  @apply btn border-2 border-cobalt text-cobalt hover:bg-cobalt hover:text-white;
+}
+
+@utility btn-saffron {
+  @apply btn bg-cobalt text-white hover:bg-cobalt-deep shadow-sm;
+}
+
+@utility btn-ghost {
+  @apply btn border-2 border-cobalt text-cobalt hover:bg-cobalt hover:text-white;
+}
+
+@utility btn-light {
+  @apply btn bg-white text-heading hover:bg-gray-50 shadow-sm;
+}
+
+@utility btn-whatsapp {
+  @apply btn bg-green-700 text-white hover:bg-green-800 shadow-sm;
+}
+
+/* ── Form fields ── */
+@utility field {
+  @apply block min-h-12 w-full border border-border bg-white px-4 py-2.5 text-base text-heading placeholder:text-muted focus:border-cobalt focus:ring-2 focus:ring-cobalt/20 aria-invalid:border-error transition-all duration-200;
+  border-radius: var(--radius-btn);
+}
+
+/* ── Cards ── */
+@utility card {
+  @apply bg-surface border border-border shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5;
+  border-radius: var(--radius-card);
+}
+
+/* ── The route line on the hero draws itself once ── */
+@keyframes draw {
+  from {
+    clip-path: inset(0 100% 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.animate-draw {
+  animation: draw 1.4s cubic-bezier(0.6, 0, 0.2, 1) 0.3s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-draw {
+    animation: none;
+  }
+}
