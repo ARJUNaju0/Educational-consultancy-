@@ -6,6 +6,7 @@ import { GraduationCap, Menu, MessageCircle, X } from "lucide-react";
 import { navLinks, siteConfig } from "@/data/site";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import MobileMenu from "./MobileMenu";
+import Image from "next/image";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -43,15 +44,7 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-2">
-          <a
-            href={buildWhatsAppUrl("Hello, I would like to know more about your services.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Chat on WhatsApp"
-            className="hidden size-11 items-center justify-center rounded-lg text-green-700 transition-colors hover:bg-green-50 md:inline-flex"
-          >
-            <MessageCircle size={22} aria-hidden="true" />
-          </a>
+      
           <Link href="/#enquiry" className="btn-primary hidden sm:inline-flex">
             Enquire now
           </Link>

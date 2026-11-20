@@ -1,96 +1,80 @@
-import { ExternalLink, MessageCircle } from "lucide-react";
-import SectionHeading from "./SectionHeading";
+import { Mail, MessageCircle, Phone } from "lucide-react";
 import { siteConfig } from "@/data/site";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
-const notSet = "To be added";
+const phoneNumbers = siteConfig.phone
+  .split(",")
+  .map((phone) => phone.trim())
+  .filter(Boolean);
+
+function formatWhatsAppNumber(number: string) {
+  const digits = number.replace(/\D/g, "");
+  if (digits.length === 12 && digits.startsWith("91")) {
+    return `+91 ${digits.slice(2, 7)} ${digits.slice(7)}`;
+  }
+  return number.startsWith("+") ? number : `+${number}`;
+}
 
 export default function Contact() {
-  const { phone, email, address, whatsappNumber, socialLinks } = siteConfig;
-  const valueClass = "mt-1 block font-display text-2xl font-bold text-white";
+  const { email, whatsappNumber } = siteConfig;
 
   return (
-    <section id="contact" className="on-dark bg-cobalt-deep py-16 sm:py-24">
-      <div className="mx-auto grid max-w-[1200px] gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_2fr] lg:gap-16">
-        <SectionHeading
-          tone="dark"
-          title="Talk to us"
-          description="Call, email or message us. We will help you work out the next step."
-        />
+    <aside className="on-dark bg-cobalt-deep p-6 text-white sm:p-8">
+      <h3 className="font-display text-3xl font-bold tracking-tight">
+        Let&apos;s talk about your goals
+      </h3>
+      <p className="mt-3 text-base text-white/80">
+        Send us a message and we&apos;ll get back to you shortly.
+      </p>
 
-        <dl className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
-          <div>
-            <dt className="text-white/80">Phone</dt>
-            <dd>
-              {phone ? (
-                <a href={`tel:${phone.replace(/\s/g, "")}`} className={`${valueClass} hover:underline`}>
-                  {phone}
-                </a>
-              ) : (
-                <span className={`${valueClass} text-white/70`}>{notSet}</span>
-              )}
-            </dd>
-          </div>
-
-          <div>
-            <dt className="text-white/80">Email</dt>
-            <dd>
-              {email ? (
-                <a href={`mailto:${email}`} className={`${valueClass} break-all hover:underline`}>
-                  {email}
-                </a>
-              ) : (
-                <span className={`${valueClass} text-white/70`}>{notSet}</span>
-              )}
-            </dd>
-          </div>
-
-          <div>
-            <dt className="text-white/80">Address</dt>
-            <dd className={`${valueClass} ${address ? "" : "text-white/70"}`}>
-              {address || notSet}
-            </dd>
-          </div>
-
-          <div>
-            <dt className="text-white/80">WhatsApp</dt>
-            <dd>
-              <span className={`${valueClass} ${whatsappNumber ? "" : "text-white/70"}`}>
-                {whatsappNumber ? `+${whatsappNumber}` : notSet}
-              </span>
-              <a
-                href={buildWhatsAppUrl("Hello, I would like to know more about your services.")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-light mt-3"
-              >
-                <MessageCircle size={18} aria-hidden="true" />
-                Chat on WhatsApp
-              </a>
-            </dd>
-          </div>
-
-          {socialLinks.length > 0 && (
-            <div className="sm:col-span-2">
-              <dt className="text-white/80">Follow us</dt>
-              <dd className="mt-2 flex flex-wrap gap-3">
-                {socialLinks.map((link) => (
+      <ul className="mt-8 space-y-6">
+        <li className="flex items-start gap-3">
+          <Phone className="mt-0.5 shrink-0 text-mint" size={20} aria-hidden="true" />
+          <div className="min-w-0">
+            <h3 className="font-semibold text-white">Call Us</h3>
+            <ul className="mt-1 space-y-1">
+              {phoneNumbers.map((phone) => (
+                <li key={phone}>
                   <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex min-h-11 items-center gap-2 rounded-lg border-2 border-white/60 px-4 font-semibold text-white transition-colors hover:bg-white hover:text-cobalt-deep"
+                    href={`tel:${phone.replace(/[^\d+]/g, "")}`}
+                    className="text-white/85 transition-colors hover:text-white hover:underline"
                   >
-                    {link.label}
-                    <ExternalLink size={16} aria-hidden="true" />
+                    {phone}
                   </a>
-                ))}
-              </dd>
-            </div>
-          )}
-        </dl>
-      </div>
-    </section>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </li>
+
+        <li className="flex items-start gap-3">
+          <MessageCircle className="mt-0.5 shrink-0 text-mint" size={20} aria-hidden="true" />
+          <div className="min-w-0">
+            <h3 className="font-semibold text-white">WhatsApp</h3>
+            <a
+              href={buildWhatsAppUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-1 block text-white/85 transition-colors hover:text-white hover:underline"
+            >
+              {formatWhatsAppNumber(whatsappNumber)}
+            </a>
+          </div>
+        </li>
+
+        <li className="flex items-start gap-3">
+          <Mail className="mt-0.5 shrink-0 text-mint" size={20} aria-hidden="true" />
+          <div className="min-w-0">
+            <h3 className="font-semibold text-white">Gmail</h3>
+            <a
+              href={`mailto:${email}`}
+              className="mt-1 block break-all text-white/85 transition-colors hover:text-white hover:underline"
+            >
+              {email}
+            </a>
+          </div>
+        </li>
+      </ul>
+    </aside>
   );
 }

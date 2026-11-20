@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
-import { CheckCircle2, Loader2, MessageCircle, TriangleAlert } from "lucide-react";
+import { CheckCircle2, Loader2, TriangleAlert } from "lucide-react";
 import { collegeLocations, colleges } from "@/data/colleges";
 import { courses } from "@/data/courses";
 import { submitEnquiry } from "@/lib/enquiry";
@@ -12,7 +12,7 @@ import {
   type EnquiryField,
   type EnquiryFormValues,
 } from "@/lib/validation";
-import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import Contact from "./Contact";
 
 const emptyValues: EnquiryFormValues = {
   name: "",
@@ -114,31 +114,18 @@ export default function EnquiryForm() {
   const isSubmitting = status === "submitting";
 
   return (
-    <section id="enquiry" className="bg-bg py-16 sm:py-24">
+    <section id="contact" className="bg-bg py-12 sm:py-16">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
-        <div className="card grid overflow-hidden md:grid-cols-[18rem_1fr]">
-          {/* Sidebar */}
-          <div className="on-dark bg-cobalt-deep p-8 text-white md:p-10">
-            <h2 className="font-display text-3xl font-bold tracking-tight">
-              Send your enquiry
-            </h2>
-            <p className="mt-3 text-lg text-white/90">
-              Tell us what you are looking for and our team will get in touch.
-            </p>
-            <a
-              href={buildWhatsAppUrl("Hello, I would like to make an enquiry.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn bg-white/15 text-white hover:bg-white/25 mt-6"
-              style={{ borderRadius: "var(--radius-btn)" }}
-            >
-              <MessageCircle size={18} aria-hidden="true" />
-              Prefer WhatsApp?
-            </a>
-          </div>
+        <h2 className="mb-5 font-display text-3xl font-bold tracking-tight text-heading">
+          Contact Us
+        </h2>
+        <div className="card grid overflow-hidden md:grid-cols-[17rem_1fr]">
+          <Contact />
 
-          {/* Form */}
-          <div className="relative border-t border-dashed border-border p-6 sm:p-10 md:border-l md:border-t-0">
+          <div
+            id="enquiry"
+            className="relative scroll-mt-20 border-t border-dashed border-border p-5 sm:p-8 md:border-l md:border-t-0"
+          >
             <span
               aria-hidden="true"
               className="absolute -left-3 -top-3 size-6 rounded-full bg-bg"
@@ -147,6 +134,10 @@ export default function EnquiryForm() {
               aria-hidden="true"
               className="absolute -right-3 -top-3 size-6 rounded-full bg-bg md:-bottom-3 md:-left-3 md:right-auto md:top-auto"
             />
+
+            <h3 className="font-display text-2xl font-bold tracking-tight text-heading">
+              Send us a message
+            </h3>
 
             {status === "success" ? (
               <div role="status" className="py-8 text-center">
@@ -170,10 +161,10 @@ export default function EnquiryForm() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} noValidate className="grid gap-5 sm:grid-cols-2">
+              <form onSubmit={handleSubmit} noValidate className="mt-5 grid gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="enquiry-name" className="mb-1.5 block font-semibold text-heading">
-                    Student name
+                    Full name
                   </label>
                   <input
                     id="enquiry-name"
@@ -192,7 +183,7 @@ export default function EnquiryForm() {
 
                 <div>
                   <label htmlFor="enquiry-mobile" className="mb-1.5 block font-semibold text-heading">
-                    Mobile number
+                    Phone
                   </label>
                   <input
                     id="enquiry-mobile"
@@ -209,7 +200,7 @@ export default function EnquiryForm() {
                   <ErrorText id="enquiry-mobile-error" message={errors.mobile} />
                 </div>
 
-                <div className="sm:col-span-2">
+                <div>
                   <label htmlFor="enquiry-email" className="mb-1.5 block font-semibold text-heading">
                     Email address
                   </label>
@@ -274,7 +265,7 @@ export default function EnquiryForm() {
                   <ErrorText id="enquiry-location-error" message={errors.location} />
                 </div>
 
-                <div className="sm:col-span-2">
+                <div>
                   <label htmlFor="enquiry-college" className="mb-1.5 block font-semibold text-heading">
                     Preferred college <span className="font-normal text-muted">(optional)</span>
                   </label>
@@ -300,12 +291,12 @@ export default function EnquiryForm() {
 
                 <div className="sm:col-span-2">
                   <label htmlFor="enquiry-message" className="mb-1.5 block font-semibold text-heading">
-                    Additional message <span className="font-normal text-muted">(optional)</span>
+                    How can we help?
                   </label>
                   <textarea
                     id="enquiry-message"
                     name="message"
-                    rows={4}
+                    rows={3}
                     maxLength={LIMITS.message}
                     value={values.message}
                     onChange={handleChange}
@@ -378,7 +369,7 @@ export default function EnquiryForm() {
                         Sending
                       </>
                     ) : (
-                      "Send enquiry"
+                      "Send Message"
                     )}
                   </button>
                 </div>

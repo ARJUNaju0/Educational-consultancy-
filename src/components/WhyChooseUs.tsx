@@ -1,5 +1,7 @@
+import Image from "next/image";
 import { ClipboardList, Compass, FileText, HeartHandshake, School } from "lucide-react";
 import SectionHeading from "./SectionHeading";
+import StudentJourney from "./StudentJourney";
 
 const reasons = [
   {
@@ -31,26 +33,39 @@ const reasons = [
 
 export default function WhyChooseUs() {
   return (
-    <section id="why-us" className="bg-surface py-16 sm:py-24">
-      <div className="mx-auto grid max-w-[1200px] gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_2fr] lg:gap-16">
-        <SectionHeading
-          title="How we support you"
-          description="Practical help at each stage of your admission journey."
-        />
+    <section id="why-us" className="relative isolate overflow-hidden bg-surface py-16 sm:py-24">
+      <Image
+        src="/support.png"
+        alt=""
+        fill
+        sizes="100vw"
+        className="pointer-events-none object-cover opacity-[1]"
+      />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-surface/80" />
 
-        <ul className="grid gap-6 sm:grid-cols-2">
-          {reasons.map((reason) => (
-            <li key={reason.title} className="card flex gap-4 p-5">
-              <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-mint-pale text-mint-deep">
-                <reason.icon size={24} aria-hidden="true" />
-              </span>
-              <div>
-                <h3 className="font-display text-lg font-bold text-heading">{reason.title}</h3>
-                <p className="mt-1 text-body">{reason.text}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
+      <div className="relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6">
+        <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
+          <SectionHeading
+            title="How we support you"
+            description="Practical help at each stage of your admission journey."
+          />
+
+          <ul className="grid gap-6 sm:grid-cols-2">
+            {reasons.map((reason) => (
+              <li key={reason.title} className="card flex gap-4 p-5">
+                <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-mint-pale text-mint-deep">
+                  <reason.icon size={24} aria-hidden="true" />
+                </span>
+                <div>
+                  <h3 className="font-display text-lg font-bold text-heading">{reason.title}</h3>
+                  <p className="mt-1 text-body">{reason.text}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <StudentJourney />
       </div>
     </section>
   );

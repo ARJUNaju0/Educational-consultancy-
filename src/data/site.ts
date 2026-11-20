@@ -31,5 +31,5 @@ export const navLinks: NavLink[] = [
   { label: "About Us", href: "/#about" },
   { label: "Courses", href: "/#courses" },
   { label: "Colleges", href: "/colleges" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact Us", href: "/#contact" },
 ];
