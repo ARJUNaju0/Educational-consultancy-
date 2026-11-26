@@ -34,13 +34,7 @@ const reasons = [
 export default function WhyChooseUs() {
   return (
     <section id="why-us" className="relative isolate overflow-hidden bg-surface py-16 sm:py-24">
-      <Image
-        src="/support.png"
-        alt=""
-        fill
-        sizes="100vw"
-        className="pointer-events-none object-cover opacity-[1]"
-      />
+      
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-surface/80" />
 
       <div className="relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6">

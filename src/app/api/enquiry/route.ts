@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { saveEnquiry } from "@/lib/appsScript";
 import { getClientIp, isRateLimited } from "@/lib/rateLimit";
 import { validateEnquiry } from "@/lib/validation";
-
+  
 const MAX_BODY_CHARS = 10_000;
 
 function fail(status: number, message: string, extra?: Record<string, unknown>) {
